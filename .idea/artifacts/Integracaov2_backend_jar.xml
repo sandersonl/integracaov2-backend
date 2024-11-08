@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Integracaov2-backend:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Integracaov2_backend_jar</output-path>
+    <root id="archive" name="Integracaov2-backend.jar">
+      <element id="module-output" name="Integracaov2-backend" />
+    </root>
+  </artifact>
+</component>
