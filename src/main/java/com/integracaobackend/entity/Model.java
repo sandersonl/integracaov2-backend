@@ -1,7 +1,8 @@
 package com.integracaobackend.entity;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,13 +15,14 @@ import javax.persistence.*;
 public class Meter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 }
