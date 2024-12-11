@@ -1,25 +1,27 @@
 package com.integracaobackend.controllers;
 
-import com.integracaobackend.models.LineModel;
-import com.integracaobackend.services.ILineService;
-import com.integracaobackend.services.LineService;
+import com.integracaobackend.entity.Line;
+import com.integracaobackend.repositories.LineRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api")
 public class LineController {
 
-    private final ILineService lineService;
+    @Autowired
+    LineRepository lineRepository;
 
-    public LineController() {
-        lineService = new LineService();
+    @GetMapping("/lines")
+    public List<Line> lines() {
+        return lineRepository.findAll();
     }
 
-    public List<LineModel> getAllLine() {
-        return lineService.getLineList();
-    }
-
-    public LineModel getLineById(int id) {
-        return lineService.getLineById(id);
+    @RequestMapping("/line/{id}")
+    public Line lineById(@PathVariable(value = "id") int id) {
+        return lineRepository.findById(id);
     }
 
 }

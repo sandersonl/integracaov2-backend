@@ -1,38 +1,30 @@
 package com.integracaobackend.utils;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-import javax.persistence.*;
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 @Configuration
-public class HibernateUtil {
+public class HibernateConfig {
 
-    private static HibernateUtil _instance;
-    @PersistenceUnit(unitName = "persistence")
-    private static EntityManagerFactory entityManagerFactory;
-    @PersistenceContext(unitName = "peristence", properties = {
-            @PersistenceProperty(name = "org.hibernate.flushMode", value = "MANUAL")
-    })
-    private static EntityManager entityManager;
-
-    public HibernateUtil(){}
-
-    static {
-        try {
-            _instance = new HibernateUtil();
-            entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
-            entityManager = entityManagerFactory.createEntityManager();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setDataSource(dataSource);
+        emf.setPackagesToScan("com.integracaobackend.entity");
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        emf.setJpaVendorAdapter(vendorAdapter);
+        return emf;
     }
 
-    public static HibernateUtil instance() {
-        return _instance;
+    @Bean
+    public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+        return new JpaTransactionManager(emf);
     }
-
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
 }

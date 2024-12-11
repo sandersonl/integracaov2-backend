@@ -1,5 +1,6 @@
 package com.integracaobackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,16 +14,14 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public  class Line {
+public class Line {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
     @Column(name = "name", length = 50, nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "line",cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
-    private List<Category> categories = new ArrayList<>();
 }

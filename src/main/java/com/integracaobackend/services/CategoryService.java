@@ -3,15 +3,13 @@ package com.integracaobackend.services;
 import com.integracaobackend.entity.Category;
 import com.integracaobackend.models.CategoryModel;
 import com.integracaobackend.repositories.CategoryRepository;
-import com.integracaobackend.repositories.ICategoryRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CategoryService implements ICategoryService {
 
-    private final ICategoryRepository categoryRepository = new CategoryRepository();
-    private final List<Category> categories = categoryRepository.list();
+    private final List<Category> categories = null;
 
     private final List<CategoryModel> categoryList = categories.stream().map(
             category -> {

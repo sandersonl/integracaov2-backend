@@ -4,7 +4,7 @@ import com.integracaobackend.models.MeterModel;
 
 import java.util.List;
 
-public interface IMeterService {
+public interface IModelService {
     List<MeterModel> getMeterList();
     List<MeterModel> getMeterByCategoryId(int id);
 }

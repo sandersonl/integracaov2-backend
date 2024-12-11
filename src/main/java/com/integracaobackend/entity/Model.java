@@ -1,6 +1,5 @@
 package com.integracaobackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Meter {
+public class Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

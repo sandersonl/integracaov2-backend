@@ -1,25 +1,45 @@
 package com.integracaobackend.controllers;
 
-import com.integracaobackend.models.CategoryModel;
-import com.integracaobackend.services.CategoryService;
-import com.integracaobackend.services.ICategoryService;
+import com.integracaobackend.entity.Category;
+import com.integracaobackend.repositories.CategoryRepository;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+@RestController
+@RequestMapping(value = "/api")
 public class CategoryController {
 
-    private final ICategoryService categoryService;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-    public CategoryController() {
-        categoryService = new CategoryService();
+    @GetMapping("/categories")
+    public List<Category> categories() {
+        return categoryRepository.findAll();
     }
 
-    public List<CategoryModel> getAllCategory() {
-        return categoryService.getCategoryList();
+    @GetMapping("/categories/{id}")
+    public Category categoryById(@PathVariable(value = "id") int id) {
+        return categoryRepository.findById(id);
     }
 
-    public List<CategoryModel> getCategoryByLineId(int id) {
-        return categoryService.getCategoryByLineId(id);
+    @GetMapping("/categories/line/id/{id}")
+    public List<Category> categoriesByLineId(@PathVariable int id) {
+        return categoryRepository.findAll().stream().filter(category -> category.getLine().getId() == id).collect(Collectors.toList());
     }
+
+    @GetMapping("/categories/line/{name}")
+    public List<Category> categoriesByLineName(@PathVariable String name) {
+        return categoryRepository.findAll().stream().filter(category -> category.getLine().getName().equals(name)).collect(Collectors.toList());
+    }
+
+
 
 }

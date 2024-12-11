@@ -1,22 +1,21 @@
 package com.integracaobackend.services;
 
-import com.integracaobackend.entity.Meter;
+import com.integracaobackend.entity.Model;
 import com.integracaobackend.models.MeterModel;
-import com.integracaobackend.repositories.MeterRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MeterService implements IMeterService{
+public class ModelService implements IModelService {
 
 
-    private final List<Meter> meters = null;
+    private final List<Model> meters = null;
 
     private final List<MeterModel> meterList = meters.stream().map(meter -> {
         return new MeterModel(meter.getId(), meter.getCategory().getId(), meter.getName(), meter.getCategory().getName());
     }).collect(Collectors.toList());
 
-    public MeterService() {
+    public ModelService() {
 
     }
 

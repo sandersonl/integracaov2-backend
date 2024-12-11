@@ -2,7 +2,6 @@ package com.integracaobackend.services;
 
 import com.integracaobackend.entity.Line;
 import com.integracaobackend.models.LineModel;
-import com.integracaobackend.repositories.ILineRepository;
 import com.integracaobackend.repositories.LineRepository;
 
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.stream.Collectors;
 
 public class LineService implements ILineService {
 
-    private final ILineRepository lineRepository = new LineRepository();
-    private final List<Line> lines = lineRepository.list();
+
+    private final List<Line> lines = null;
 
     private final List<LineModel> lineList = lines.stream().map(line -> {
         return new LineModel(line.getId(), line.getName());
