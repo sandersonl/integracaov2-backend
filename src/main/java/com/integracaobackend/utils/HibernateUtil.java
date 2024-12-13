@@ -1,6 +1,6 @@
 package com.integracaobackend.utils;
 
-import lombok.Getter;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -8,20 +8,19 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
-    private static HibernateUtil _instance;
 
-    @Getter
     private static StandardServiceRegistry standardServiceRegistry;
 
-    @Getter
-    private static SessionFactory sessionFactory;
+    private static volatile SessionFactory sessionFactory;
 
-    private HibernateUtil(){
-    }
+    private static HibernateUtil instance;
+
+    private HibernateUtil(){}
 
     static {
         try {
-            _instance = new HibernateUtil();
+
+            instance = new HibernateUtil();
 
             if(sessionFactory == null) {
                 standardServiceRegistry = new StandardServiceRegistryBuilder().configure().build();
@@ -37,8 +36,8 @@ public class HibernateUtil {
         }
     }
 
-    public static HibernateUtil instance() {
-        return _instance;
+    public static Session getSession() {
+        return sessionFactory.openSession();
     }
 
 }
