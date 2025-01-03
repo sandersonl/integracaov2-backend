@@ -1,10 +1,10 @@
 package com.integracaobackend.services;
 
-import com.integracaobackend.models.LineModel;
+import com.integracaobackend.entity.Line;
 
 import java.util.List;
 
 public interface ILineService {
-    List<LineModel> getLineList();
-    LineModel getLineById(int id);
+    List<Line> getLineList();
+    Line getLineById(int id);
 }

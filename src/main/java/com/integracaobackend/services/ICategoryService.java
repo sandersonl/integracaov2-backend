@@ -1,10 +1,10 @@
 package com.integracaobackend.services;
 
-import com.integracaobackend.models.CategoryModel;
+import com.integracaobackend.entity.Category;
 
 import java.util.List;
 
 public interface ICategoryService {
-    List<CategoryModel> getCategoryList();
-    List<CategoryModel> getCategoryByLineId(int id);
+    List<Category> getCategoryList();
+    List<Category> getCategoryByLineId(int id);
 }

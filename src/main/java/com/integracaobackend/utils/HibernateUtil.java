@@ -1,44 +1,27 @@
 package com.integracaobackend.utils;
 
-import lombok.Getter;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-    private static HibernateUtil _instance;
 
-    @Getter
-    private static StandardServiceRegistry standardServiceRegistry;
-
-    @Getter
     private static SessionFactory sessionFactory;
 
-    private HibernateUtil(){
-    }
+    private HibernateUtil(){}
 
-    static {
-        try {
-            _instance = new HibernateUtil();
-
-            if(sessionFactory == null) {
-                standardServiceRegistry = new StandardServiceRegistryBuilder().configure().build();
-                MetadataSources metadataSources = new MetadataSources(standardServiceRegistry);
-                Metadata metadata  = metadataSources.getMetadataBuilder().build();
-                sessionFactory = metadata.getSessionFactoryBuilder().build();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            if(standardServiceRegistry != null) {
-                StandardServiceRegistryBuilder.destroy(standardServiceRegistry);
+    public static Session getInstance() {
+        if (sessionFactory == null) {
+            try {
+                sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+                sessionFactory.openSession();
+            } catch (Throwable ex) {
+                System.err.println("Initial SessionFactory creation failed." + ex);
+                throw new ExceptionInInitializerError(ex);
             }
         }
-    }
 
-    public static HibernateUtil instance() {
-        return _instance;
+        return sessionFactory.getCurrentSession();
     }
 
 }
